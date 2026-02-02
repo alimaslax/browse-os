@@ -5,6 +5,7 @@ const outFile = path.resolve(__dirname, '../dist/bundle.css')
 
 const modules = [
   'css/base.css',
+  'css/arc-layout.css',
   'css/windowControls.css',
   'css/modal.css',
   'css/tabBar.css',
@@ -23,7 +24,7 @@ const modules = [
   'node_modules/dragula/dist/dragula.min.css'
 ]
 
-function buildBrowserStyles () {
+function buildBrowserStyles() {
   /* concatenate modules */
   let output = ''
   modules.forEach(function (script) {

@@ -1,15 +1,3 @@
-:root {
-  --theme-background-color: #000000;
-  /* Sidebar bg */
-  --secondary-background-color: #0c0c0c;
-  /* Sidebar/Toolbar bg */
-  --background-color: #000000;
-  /* Main bg */
-  --border-color: #333;
-  --input-background: #222;
-  --text-color: #fff;
-}
-
 * {
   margin: 0;
   padding: 0;
@@ -18,20 +6,16 @@
   font-family: ".SFNSText-Regular", "BlinkMacSystemFont", "Helvetica Neue",
     "Segoe UI", "Arial", sans-serif;
 }
-
 /* TODO figure out why the default focus color in Electron is orange */
 *:focus {
   outline-color: rgb(0, 117, 255);
 }
-
 .dark-mode *:focus {
   outline-color: transparent;
 }
-
 body.mac * {
   letter-spacing: 0.4px;
 }
-
 [hidden] {
   display: none !important;
 }
@@ -44,7 +28,6 @@ button {
   color: inherit;
   outline: none;
 }
-
 body,
 html {
   background-color: #fff;
@@ -69,28 +52,23 @@ h3 {
   color: inherit;
   text-align: center;
 }
-
 h2 {
   text-align: left;
   font-size: 2.75em;
 }
-
 h3 {
   text-align: left;
   font-size: 2em;
 }
-
-h1+h2 {
+h1 + h2 {
   margin-top: -1em;
 }
-
 .centered {
   position: absolute;
   top: 50%;
   left: 50%;
   transform: translateX(-50%) translateY(-50%);
 }
-
 .spacer {
   height: 1em;
 }
@@ -120,20 +98,16 @@ a {
 .has-thin-scrollbar::-webkit-scrollbar {
   height: 0.25em;
 }
-
 .has-thin-scrollbar::-webkit-scrollbar-track {
   background-color: rgba(0, 0, 0, 0.05);
 }
-
 .has-thin-scrollbar::-webkit-scrollbar-thumb {
   background-color: rgba(0, 0, 0, 0.175);
   border-radius: 0.25em;
 }
-
 .dark-theme .has-thin-scrollbar::-webkit-scrollbar-track {
   background-color: rgba(255, 255, 255, 0.25);
 }
-
 .dark-theme .has-thin-scrollbar::-webkit-scrollbar-thumb {
   background-color: rgba(255, 255, 255, 0.6);
 }

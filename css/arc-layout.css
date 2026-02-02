@@ -1,0 +1,182 @@
+/* Arc-style Layout */
+
+/* 
+  The main container for the app. 
+  It uses flexbox to position the sidebar and content area side-by-side.
+*/
+#app-layout {
+    display: flex;
+    width: 100vw;
+    height: 100vh;
+    overflow: hidden;
+    background-color: var(--theme-background-color);
+}
+
+/* 
+  The Sidebar
+  Contains window controls, tabs, and navigation.
+*/
+/* 
+  The Sidebar
+  Contains window controls, tabs, and navigation.
+*/
+#sidebar {
+    width: 240px;
+    min-width: 68px;
+    /* Collapsed state width (approx icon width) */
+    max-width: 400px;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    background-color: var(--secondary-background-color);
+    border-right: 1px solid var(--border-color);
+    padding-top: 10px;
+    box-sizing: border-box;
+    flex-shrink: 0;
+    z-index: 100;
+    /* Ensure above webviews for expansion */
+    transition: width 0.25s cubic-bezier(0.4, 0.0, 0.2, 1);
+    position: relative;
+    overflow: hidden;
+    /* Hide content when collapsed if needed, or use specific hiding */
+}
+
+/* Hover to expand logic - simplistic approach for "expanding in and out" */
+/* If we want it to auto-collapse, we can set default width to small and hover to large. */
+/* For now, let's assume it sticks to 240px but allows smooth resizing if we add a toggle later. */
+/* User request "expanding in and out" might imply auto-hide behavior. */
+/* Let's Try: Default visible, but if we add a class .sidebar-collapsed, it shrinks. */
+
+#sidebar.collapsed {
+    width: 68px;
+}
+
+#sidebar.collapsed:hover {
+    width: 240px;
+}
+
+
+/* 
+  Webviews container
+*/
+#webviews {
+    flex-grow: 1;
+    height: 100%;
+    position: relative;
+    background-color: var(--background-color);
+    overflow: hidden;
+    margin: 0;
+    border-left: 1px solid var(--border-color);
+}
+
+/* Move navbar items to vertical layout if they are reused */
+#sidebar .navbar-action-button {
+    margin: 4px 12px;
+    width: auto;
+    justify-content: flex-start;
+}
+
+#sidebar #tabs {
+    flex-grow: 1;
+    overflow-y: auto;
+    overflow-x: hidden;
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    /* Hide scrollbar */
+    scrollbar-width: none;
+}
+
+#sidebar #tabs::-webkit-scrollbar {
+    display: none;
+}
+
+/* Adjustments for specific elements when inside sidebar */
+
+/* Force Searchbar to flow within sidebar */
+#sidebar #searchbar {
+    position: relative !important;
+    top: auto !important;
+    left: auto !important;
+    width: 90% !important;
+    margin: 10px auto !important;
+    height: 38px !important;
+    border-radius: 8px !important;
+    background: var(--input-background) !important;
+    padding: 0 10px !important;
+    /* Reset padding */
+    box-shadow: none !important;
+    display: flex;
+    align-items: center;
+    flex-shrink: 0;
+}
+
+/* Fix internal searchbar items */
+#sidebar #searchbar .searchbar-item {
+    width: 100%;
+}
+
+/* Window controls adjustment */
+.windows-caption-buttons {
+    position: relative;
+    top: 0;
+    right: 0;
+    display: flex;
+    margin-left: 18px;
+    margin-bottom: 14px;
+    height: 20px;
+    flex-shrink: 0;
+}
+
+/* 
+   Collapsed State Content Handling
+   When collapsed, hide searchbar and text, show only icons if possible.
+*/
+
+/* Hide searchbar when collapsed (it takes too much space) */
+#sidebar.collapsed #searchbar {
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.1s;
+}
+
+#sidebar.collapsed:hover #searchbar {
+    opacity: 1;
+    pointer-events: auto;
+    transition: opacity 0.2s 0.1s;
+    /* Delay to wait for expansion */
+}
+
+/* Hide navigation buttons text/extra space */
+#sidebar.collapsed #navbar .navbar-action-button {
+    /* If buttons have text, hide it? They seem to be icons mostly */
+}
+
+/* Hide tab titles in collapsed mode so only icons show */
+#sidebar.collapsed .tab-item .title,
+#sidebar.collapsed .tab-item .title-container,
+#sidebar.collapsed .tab-item .tab-close-button {
+    opacity: 0;
+    pointer-events: none;
+    /* unexpected clicks */
+}
+
+#sidebar.collapsed:hover .tab-item .title,
+#sidebar.collapsed:hover .tab-item .title-container,
+#sidebar.collapsed:hover .tab-item .tab-close-button {
+    opacity: 1;
+    pointer-events: auto;
+    transition: opacity 0.2s 0.1s;
+}
+
+/* Center icons in collapsed mode */
+#sidebar.collapsed .tab-item {
+    justify-content: center;
+    padding: 0;
+}
+
+#sidebar.collapsed:hover .tab-item {
+    justify-content: flex-start;
+    padding-left: 0.75rem;
+    padding-right: 0.5rem;
+}
