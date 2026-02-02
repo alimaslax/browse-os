@@ -3,7 +3,6 @@
  * Shows current URL and allows editing/navigation
  */
 
-var tabs = require('tabState.js')
 var urlParser = require('util/urlParser.js')
 var webviews = require('webviews.js')
 var searchbar = require('searchbar/searchbar.js')
@@ -13,17 +12,21 @@ const arcUrlBar = {
     input: null,
 
     initialize: function () {
+        console.log('[arcUrlBar] initialize called')
         // Get DOM elements when initialize is called (after DOM is ready)
         arcUrlBar.container = document.getElementById('arc-url-bar')
         arcUrlBar.input = document.getElementById('arc-url-input')
+        console.log('[arcUrlBar] container:', arcUrlBar.container)
+        console.log('[arcUrlBar] input:', arcUrlBar.input)
 
         if (!arcUrlBar.input || !arcUrlBar.container) {
-            console.warn('Arc URL bar elements not found')
+            console.warn('[arcUrlBar] Arc URL bar elements not found')
             return
         }
+        console.log('[arcUrlBar] elements found, setting up listeners')
 
         // Update URL when tab changes
-        tabs.on('tab-selected', function (tabId) {
+        tasks.on('tab-selected', function (tabId) {
             arcUrlBar.updateURL(tabId)
         })
 
@@ -42,12 +45,19 @@ const arcUrlBar = {
 
         // Handle Enter key to navigate
         arcUrlBar.input.addEventListener('keydown', function (e) {
+            console.log('[arcUrlBar] keydown event:', e.key)
             if (e.key === 'Enter') {
+                console.log('[arcUrlBar] Enter pressed')
                 e.preventDefault()
                 var url = this.value.trim()
+                console.log('[arcUrlBar] raw input:', url)
                 if (url) {
-                    // Direct navigation, bypassing searchbar/plugins
-                    webviews.update(tabs.getSelected(), url)
+                    // Parse the URL (handles protocols, search queries, etc.)
+                    var parsedURL = urlParser.parse(url)
+                    console.log('[arcUrlBar] parsed URL:', parsedURL)
+                    console.log('[arcUrlBar] selected tab:', tabs.getSelected())
+                    webviews.update(tabs.getSelected(), parsedURL)
+                    console.log('[arcUrlBar] webviews.update called')
                     this.blur()
                 }
             } else if (e.key === 'Escape') {
