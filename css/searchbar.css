@@ -1,27 +1,45 @@
+/* Arc-style searchbar override for sidebar */
+
+/* Override the default searchbar positioning to work within sidebar */
 #searchbar {
   z-index: 3;
-  position: fixed;
-  top: calc(var(--control-space-top) + 36px);
-  left: 0;
-  width: 100%;
-  background: #fff;
-  color: #000;
-  padding-left: var(--control-space-left);
-  padding-right: calc(82px + var(--control-space-right));
+  position: relative !important;
+  top: auto !important;
+  left: auto !important;
+  width: calc(100% - 24px) !important;
+  margin: 0 12px 12px 12px !important;
+  height: 34px !important;
+  min-height: 34px !important;
+  max-height: 34px !important;
+  border-radius: 8px !important;
+  background: var(--input-background) !important;
+  padding: 0 12px !important;
+  box-shadow: none !important;
+  display: flex !important;
+  align-items: center !important;
+  flex-shrink: 0 !important;
+  color: var(--text-color) !important;
+  font-size: 13px !important;
+  border: 1px solid transparent !important;
+  transition: all 0.2s ease !important;
+  overflow: hidden !important;
   -webkit-user-select: none;
-  max-height: calc(100% - 125px);
-  overflow-y: auto;
+  user-select: none;
+}
+
+#searchbar:focus-within {
+  border-color: var(--arc-accent-color) !important;
+  background: rgba(59, 130, 246, 0.2) !important;
 }
 
 body:not(.is-ntp) #searchbar,
 body.ntp-has-background #searchbar {
-  box-shadow: rgba(0, 0, 0, 0.25) 0px 3px 4px -2px;
+  box-shadow: none !important;
 }
 
-/* account for menu button */
 body.windows #searchbar,
 body.linux #searchbar {
-  padding-left: calc(36px + var(--control-space-left));
+  padding-left: 12px !important;
 }
 
 .searchbar-plugin-container {
@@ -39,7 +57,7 @@ body.linux #searchbar {
   position: absolute;
   right: 0;
   top: 0.5em;
-  border: 1px #ccc solid;
+  border: 1px var(--border-color) solid;
   padding: 0.33em 0.5em;
   border-radius: 3px;
   opacity: 0.66;
@@ -47,14 +65,15 @@ body.linux #searchbar {
 }
 
 .searchbar-floating-button:hover {
-  background-color: rgba(0, 0, 0, 0.05)
+  background-color: var(--arc-tab-hover-bg);
 }
 
 .dark-theme .searchbar-floating-button {
-  border-color: white;
+  border-color: var(--border-color);
 }
+
 .dark-theme .searchbar-floating-button:hover {
-  background-color: rgba(255, 255, 255, 0.075)
+  background-color: var(--arc-tab-hover-bg);
 }
 
 /* move the icon when there isn't room to the left of the searchbar */
@@ -84,6 +103,7 @@ body:not(.mac) #searchbar .searchbar-item.has-action-button:hover .icon-image {
   border: 1px solid rgba(0, 0, 0, 0.2);
   padding-right: 0.5em;
 }
+
 .dark-theme #searchbar .image.color-circle {
   border-color: rgba(255, 255, 255, 0.2);
 }
@@ -107,26 +127,49 @@ body:not(.mac) #searchbar .searchbar-item.has-action-button:hover .icon-image {
   padding: 0.5em 0.66em;
   margin: 0.175em 0.4em 0.5em 0.4em;
   border-radius: 5px;
-  border: 1px rgba(0, 0, 0, 0.15) solid;
+  border: 1px var(--border-color) solid;
 }
+
 .dark-theme .searchbar-shortcut {
-  border-color: rgba(255, 255, 255, 0.4);
+  border-color: var(--border-color);
 }
 
 .searchbar-shortcut:hover,
 .searchbar-shortcut:focus {
-  background: rgba(0, 0, 0, 0.075);
+  background: var(--arc-tab-hover-bg);
 }
 
 .dark-theme .searchbar-shortcut:hover,
 .dark-theme .searchbar-shortcut:focus {
-  background: rgba(255, 255, 255, 0.075);
+  background: var(--arc-tab-hover-bg);
 }
 
 .searchbar-shortcut:active {
-  background: rgba(0, 0, 0, 0.125);
+  background: rgba(255, 255, 255, 0.125);
 }
 
 .dark-theme .searchbar-shortcut:active {
   background: rgba(255, 255, 255, 0.125);
+}
+
+/* Searchbar input - the actual URL input */
+#searchbar .top-answer-area {
+  width: 100%;
+  display: flex;
+  align-items: center;
+}
+
+/* Style the input that appears in the searchbar */
+#searchbar input,
+#searchbar .searchbar-input {
+  background: transparent !important;
+  border: none !important;
+  color: var(--text-color) !important;
+  font-size: 13px !important;
+  width: 100% !important;
+  outline: none !important;
+}
+
+#searchbar input::placeholder {
+  color: var(--arc-muted-text) !important;
 }

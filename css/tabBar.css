@@ -173,15 +173,15 @@ body.linux #menu-button {
 }
 
 .tab-item:not(.active):hover {
-  background-color: rgba(0, 0, 0, 0.03);
+  background-color: var(--arc-tab-hover-bg);
 }
 
 .dark-theme .tab-item:not(.active):hover {
-  background-color: rgba(255, 255, 255, 0.1);
+  background-color: var(--arc-tab-hover-bg);
 }
 
 .dark-theme.theme-background-low-contrast .tab-item:not(.active):hover {
-  background-color: rgba(255, 255, 255, 0.15);
+  background-color: var(--arc-tab-hover-bg);
 }
 
 /* icons */
@@ -225,15 +225,18 @@ body:not(.touch) .tab-item:not(:hover) .tab-icon-area:has(.tab-close-button:only
 }
 
 .tab-item.active:not(:only-child) {
-  background: rgba(0, 0, 0, 0.06);
+  background: var(--arc-tab-active-bg);
+  border-left: 2px solid var(--arc-accent-color);
 }
 
 .dark-theme .tab-item.active:not(:only-child) {
-  background: rgba(255, 255, 255, 0.2);
+  background: var(--arc-tab-active-bg);
+  border-left: 2px solid var(--arc-accent-color);
 }
 
 .dark-theme.theme-background-low-contrast .tab-item.active:not(:only-child) {
-  background: rgba(255, 255, 255, 0.25);
+  background: var(--arc-tab-active-bg);
+  border-left: 2px solid var(--arc-accent-color);
 }
 
 .tab-item.fade {

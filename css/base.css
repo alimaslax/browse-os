@@ -1,13 +1,22 @@
 :root {
-  --theme-background-color: #000000;
+  /* Arc-style dark theme */
+  --theme-background-color: #1a1a1a;
+  /* Main webview bg */
+  --secondary-background-color: #232323;
   /* Sidebar bg */
-  --secondary-background-color: #0c0c0c;
-  /* Sidebar/Toolbar bg */
-  --background-color: #000000;
+  --background-color: #0d0d0d;
   /* Main bg */
-  --border-color: #333;
-  --input-background: #222;
-  --text-color: #fff;
+  --border-color: rgba(255, 255, 255, 0.08);
+  --input-background: rgba(59, 130, 246, 0.15);
+  --text-color: #e5e5e5;
+
+  /* Arc highlight colors */
+  --arc-accent-color: #3b82f6;
+  --arc-accent-hover: rgba(59, 130, 246, 0.2);
+  --arc-tab-active-bg: rgba(59, 130, 246, 0.25);
+  --arc-tab-hover-bg: rgba(255, 255, 255, 0.06);
+  --arc-muted-text: rgba(255, 255, 255, 0.5);
+  --arc-section-text: rgba(255, 255, 255, 0.7);
 }
 
 * {

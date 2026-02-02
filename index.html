@@ -13,41 +13,53 @@
 
 <body>
   <div id="app-layout">
-    <div id="sidebar" class="collapsed">
-      <!-- Window Controls -->
-      <div class="windows-caption-buttons">
-        <div class="element caption-minimise">
-          <svg>
-            <line x1="1" y1="5.5" x2="11" y2="5.5" />
-          </svg>
+    <div id="sidebar">
+      <!-- Top Navigation Row - Window controls + nav buttons -->
+      <div class="sidebar-top-nav">
+        <!-- Window Controls (Mac traffic lights) -->
+        <div class="windows-caption-buttons">
+          <div class="element caption-minimise">
+            <svg>
+              <line x1="1" y1="5.5" x2="11" y2="5.5" />
+            </svg>
+          </div>
+          <div class="element caption-maximize">
+            <svg>
+              <rect x="1.5" y="1.5" width="9" height="9" />
+            </svg>
+          </div>
+          <div class="element caption-restore">
+            <svg>
+              <rect x="1.5" y="3.5" width="7" height="7" />
+              <polyline points="3.5,3.5 3.5,1.5 10.5,1.5 10.5,8.5 8.5,8.5" />
+            </svg>
+          </div>
+          <div class="element caption-close">
+            <svg>
+              <path d="M1,1 l 10,10 M1,11 l 10,-10" />
+            </svg>
+          </div>
         </div>
-        <div class="element caption-maximize">
-          <svg>
-            <rect x="1.5" y="1.5" width="9" height="9" />
-          </svg>
-        </div>
-        <div class="element caption-restore">
-          <svg>
-            <rect x="1.5" y="3.5" width="7" height="7" />
-            <polyline points="3.5,3.5 3.5,1.5 10.5,1.5 10.5,8.5 8.5,8.5" />
-          </svg>
-        </div>
-        <div class="element caption-close">
-          <svg>
-            <path d="M1,1 l 10,10 M1,11 l 10,-10" />
-          </svg>
+
+        <!-- Navigation Buttons -->
+        <div class="sidebar-nav-buttons">
+          <button id="sidebar-split-view" class="i carbon:split-screen" tabindex="-1" title="Split View"></button>
+          <button id="back-button" class="i carbon:chevron-left" data-label="goBack" tabindex="-1"
+            title="Go Back"></button>
+          <button id="forward-button" class="i carbon:chevron-right" data-label="goForward" tabindex="-1"
+            title="Go Forward"></button>
+          <button id="refresh-button" class="i carbon:rotate" tabindex="-1" title="Refresh"></button>
         </div>
       </div>
 
-      <!-- Searchbar moved to sidebar top -->
-      <div id="searchbar" class="theme-text-color">
-        <div class="top-answer-area"></div>
+      <!-- Arc-style URL Bar (always visible) -->
+      <div id="arc-url-bar" class="arc-url-bar">
+        <input type="text" id="arc-url-input" class="arc-url-input" placeholder="Search or enter address" />
       </div>
 
-      <!-- Navbar (Navigation & Tabs) -->
-      <div id="navbar" class="theme-text-color windowDragHandle" tabindex="-1">
-
-        <button id="linux-control-buttons" class="theme-text-color">
+      <!-- Tab Sections with Navbar -->
+      <div id="navbar" class="theme-text-color" tabindex="-1">
+        <button id="linux-control-buttons" class="theme-text-color" hidden>
           <svg width="74" height="24" version="1.1" fill="none" stroke="none" stroke-linecap="square"
             stroke-miterlimit="10" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns="http://www.w3.org/2000/svg">
             <g id="minimize-button">
@@ -79,28 +91,30 @@
           </svg>
         </button>
 
-
         <div id="mac-window-drag-area"></div>
         <button id="menu-button" class="navbar-action-button i carbon:overflow-menu-vertical" data-label="openMenu"
-          tabindex="-1"></button>
-        <div id="toolbar-navigation-buttons" hidden>
-          <button id="back-button" class="navbar-action-button i carbon:chevron-left" data-label="goBack"
-            tabindex="-1"></button>
-          <button id="forward-button" class="navbar-action-button i carbon:chevron-right" data-label="goForward"
-            tabindex="-1"></button>
-        </div>
+          tabindex="-1" hidden></button>
+        <div id="toolbar-navigation-buttons" hidden></div>
+
+        <!-- Main Tabs -->
         <div id="tabs">
           <div id="tab-editor" hidden>
             <input id="tab-editor-input" spellcheck="false" />
           </div>
           <div id="tabs-inner" role="tablist" class="has-thin-scrollbar"></div>
         </div>
-        <div class="navbar-right-actions">
-          <button id="add-tab-button" class="navbar-action-button i carbon:add" data-label="newTabAction"
-            tabindex="-1"></button>
-        </div>
+      </div>
+
+      <!-- Bottom Action Bar -->
+      <div class="sidebar-bottom-actions">
+        <button id="trash-tabs-button" class="i carbon:trash-can" title="Deleted Tabs" tabindex="-1"></button>
+        <button id="add-tab-button" class="i carbon:add" data-label="newTabAction" title="New Tab"
+          tabindex="-1"></button>
       </div>
     </div> <!-- End Sidebar -->
+
+    <!-- Hidden searchbar for JS compatibility -->
+    <div id="searchbar" hidden style="display:none !important;"></div>
 
     <!-- Main Webview Area -->
     <div id="webviews">

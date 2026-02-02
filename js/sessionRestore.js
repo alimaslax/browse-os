@@ -85,10 +85,10 @@ const sessionRestore = {
         tasks.setSelected(tasks.add()) // create a new task
 
         var newTab = tasks.getSelected().tabs.add({
-            url: 'https://minbrowser.github.io/min/tour'
+          url: 'https://google.com'
         })
         browserUI.addTab(newTab, {
-         enterEditMode: false
+          enterEditMode: false
         })
         return
       }
@@ -99,7 +99,7 @@ const sessionRestore = {
       if ((data.version && data.version !== 2) || (data.state && data.state.tasks && data.state.tasks.length === 0)) {
         tasks.setSelected(tasks.add())
 
-        browserUI.addTab(tasks.getSelected().tabs.add())
+        browserUI.addTab(tasks.getSelected().tabs.add({ url: 'https://google.com' }))
         return
       }
 
@@ -182,7 +182,7 @@ const sessionRestore = {
       // create a new tab with an explanation of what happened
       var newTask = tasks.add()
       var newSessionErrorTab = tasks.get(newTask).tabs.add({
-        url: 'min://app/pages/sessionRestoreError/index.html?backupLoc=' + encodeURIComponent(backupSavePath)
+        url: 'https://google.com'
       })
 
       browserUI.switchToTask(newTask)

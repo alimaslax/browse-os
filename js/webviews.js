@@ -9,7 +9,7 @@ var hasSeparateTitlebar = settings.get('useSeparateTitlebar')
 var windowIsMaximized = false // affects navbar height on Windows
 var windowIsFullscreen = false
 
-function captureCurrentTab (options) {
+function captureCurrentTab(options) {
   if (tabs.get(tabs.getSelected()).private) {
     // don't capture placeholders for private tabs
     return
@@ -28,7 +28,7 @@ function captureCurrentTab (options) {
 }
 
 // called whenever a new page starts loading, or an in-page navigation occurs
-function onPageURLChange (tab, url) {
+function onPageURLChange(tab, url) {
   if (url.indexOf('https://') === 0 || url.indexOf('about:') === 0 || url.indexOf('chrome:') === 0 || url.indexOf('file://') === 0 || url.indexOf('min://') === 0) {
     tabs.update(tab, {
       secure: true,
@@ -45,14 +45,14 @@ function onPageURLChange (tab, url) {
 }
 
 // called whenever a navigation finishes
-function onNavigate (tabId, url, isInPlace, isMainFrame, frameProcessId, frameRoutingId) {
+function onNavigate(tabId, url, isInPlace, isMainFrame, frameProcessId, frameRoutingId) {
   if (isMainFrame) {
     onPageURLChange(tabId, url)
   }
 }
 
 // called whenever the page finishes loading
-function onPageLoad (tabId) {
+function onPageLoad(tabId) {
   // capture a preview image if a new page has been loaded
   if (tabId === tabs.getSelected()) {
     setTimeout(function () {
@@ -62,7 +62,7 @@ function onPageLoad (tabId) {
   }
 }
 
-function scrollOnLoad (tabId, scrollPosition) {
+function scrollOnLoad(tabId, scrollPosition) {
   const listener = function (eTabId) {
     if (eTabId === tabId) {
       // the scrollable content may not be available until some time after the load event, so attempt scrolling several times
@@ -90,7 +90,7 @@ function scrollOnLoad (tabId, scrollPosition) {
   webviews.bindEvent('did-finish-load', listener)
 }
 
-function setAudioMutedOnCreate (tabId, muted) {
+function setAudioMutedOnCreate(tabId, muted) {
   const listener = function () {
     webviews.callAsync(tabId, 'setAudioMuted', muted)
     webviews.unbindEvent('did-navigate', listener)
@@ -108,7 +108,7 @@ const webviews = {
   },
   events: [],
   IPCEvents: [],
-  hasViewForTab: function(tabId) {
+  hasViewForTab: function (tabId) {
     return tabId && tasks.getTaskContainingTab(tabId) && tasks.getTaskContainingTab(tabId).tabs.get(tabId).hasWebContents
   },
   bindEvent: function (event, fn) {
@@ -150,6 +150,9 @@ const webviews = {
     webviews.resize()
   },
   getViewBounds: function () {
+    // Sidebar width for Arc-style layout
+    const sidebarWidth = 230
+
     if (webviews.viewFullscreenMap[webviews.selectedId]) {
       return {
         x: 0,
@@ -158,18 +161,15 @@ const webviews = {
         height: window.innerHeight
       }
     } else {
-      if (!hasSeparateTitlebar && (window.platformType === 'linux' || window.platformType === 'windows') && !windowIsMaximized && !windowIsFullscreen) {
-        var navbarHeight = 48
-      } else {
-        var navbarHeight = 36
-      }
+      // With Arc-style sidebar layout, the navbar is in the sidebar, so navbarHeight is 0
+      var navbarHeight = 0
 
       const viewMargins = webviews.viewMargins
 
       let position = {
-        x: 0 + Math.round(viewMargins[3]),
+        x: sidebarWidth + Math.round(viewMargins[3]),
         y: 0 + Math.round(viewMargins[0]) + navbarHeight,
-        width: window.innerWidth - Math.round(viewMargins[1] + viewMargins[3]),
+        width: window.innerWidth - sidebarWidth - Math.round(viewMargins[1] + viewMargins[3]),
         height: window.innerHeight - Math.round(viewMargins[0] + viewMargins[2]) - navbarHeight
       }
 

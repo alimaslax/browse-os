@@ -6,7 +6,7 @@ var urlParser = require('util/urlParser.js')
 var searchbarPlugins = require('searchbar/searchbarPlugins.js')
 var keyboardNavigationHelper = require('util/keyboardNavigationHelper.js')
 
-function openURLInBackground (url) { // used to open a url in the background, without leaving the searchbar
+function openURLInBackground(url) { // used to open a url in the background, without leaving the searchbar
   searchbar.events.emit('url-selected', { url: url, background: true })
 
   var i = searchbar.el.querySelector('.searchbar-item:focus')
@@ -21,11 +21,13 @@ var searchbar = {
   events: new EventEmitter(),
   show: function (associatedInput) {
     searchbar.el.hidden = false
+    searchbar.el.classList.add('searchbar-visible')
     searchbar.associatedInput = associatedInput
   },
   hide: function () {
     searchbar.associatedInput = null
     searchbar.el.hidden = true
+    searchbar.el.classList.remove('searchbar-visible')
 
     searchbarPlugins.clearAll()
   },
